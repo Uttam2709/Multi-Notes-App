@@ -15,61 +15,85 @@ export default function Login() {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate('/dashboard');
-    } catch {
-      alert('Failed to log in');
+      alert("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      alert("Failed to log in: " + error.message);
     }
   };
+  //   e.preventDefault();
+  //   try {
+  //     await login(emailRef.current.value, passwordRef.current.value);
+  //     navigate('/dashboard');
+  //   } catch {
+  //     alert('Failed to log in');
+  //   }
+  // };
 
   return (
-    <div className="container card mt-5">
-      <h2 className="text-success text-md-center">Login</h2>
-      <p className="text-muted text-md-center">Welcome to your personal Boards and Note making App</p>
-      <form className="form p-5" onSubmit={handleSubmit}>
-        <input
-          className="form-control m-3"
-          ref={emailRef}
-          type="email"
-          placeholder="Email"
-          required
-        />
-        <div className="position-relative m-3">
-          <input
-            className="form-control"
-            ref={passwordRef}
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            required
-          />
-          <span
-            onClick={togglePasswordVisibility}
-            className="position-absolute"
-            style={{
-              right: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              cursor: 'pointer',
-            }}
-          >
-            {showPassword ? "👁" : "👀"}
-          </span>
-        </div>
-        <div className="form-check ms-3 my-2">
-          <input className="form-check-input" type="checkbox" id="rememberMe" />
-          <label className="form-check-label" htmlFor="rememberMe">
-            Remember Me
-          </label>
-          <Link to="#" className="text-decoration-none text-success ms-3">Forgot Password?</Link>
-        </div>
-        <button className="btn btn-success ms-3" type="submit">Login</button>
-        <div className="ms-3 mt-2">
-          Don't have an account? <Link to="/signup" className="text-decoration-none text-info">Sign Up</Link>
-        </div>
-      </form>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card col-6 p-4 shadow">
+        <h2 className="text-success text-center">Login</h2>
+        <p className="text-muted text-center">
+          Welcome to your personal Boards and Note making App
+        </p>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="row g-3">
+            <div className="col-12">
+              <input
+                className="form-control"
+                ref={emailRef}
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div className="col-12 position-relative">
+              <input
+                className="form-control"
+                ref={passwordRef}
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                required
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="position-absolute"
+                style={{
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                }}
+              >
+                {showPassword ? '👁' : '👀'}
+              </span>
+            </div>
+          </div>
+          <div className="form-check text-center">
+            <input className="form-check-input me-2" type="checkbox" id="rememberMe" />
+            <label className="form-check-label" htmlFor="rememberMe">
+              Remember Me
+            </label>
+            <Link to="#" className="text-decoration-none text-success ms-3">
+              Forgot Password?
+            </Link>
+          </div>
+          <button className="btn btn-success w-100 mt-3" type="submit">
+            Login
+          </button>
+          <div className="text-center mt-3">
+            Don't have an account?{' '}
+            <Link to="/signup" className="text-decoration-none text-info">
+              Sign Up
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

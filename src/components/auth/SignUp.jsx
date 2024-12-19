@@ -1,36 +1,151 @@
-import React, { useRef } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import '../../assets/CustomStyle.css';
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import "../../assets/CustomStyle.css";
 
 export default function SignUp() {
+  const firstNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const contactRef = useRef();
+  const genderRef = useRef();
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      await signUp(emailRef.current.value, passwordRef.current.value);
-      navigate('/login');
-    } catch {
-      alert('Failed to sign up');
-    }
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return alert("Passwords do not match!");
+    }
+  
+    const userDetails = {
+      firstName: firstNameRef.current.value,
+      contact: contactRef.current.value,
+      gender: genderRef.current.value,
+    };
+  
+    try {
+      await signUp(emailRef.current.value, passwordRef.current.value, userDetails);
+      alert("Sign-up successful!");
+      navigate("/login");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  
   return (
-    <div className="container card mt-5">
-      <h2 className="title">Sign Up</h2>
-      <p className="description">Welcome to your personal Boards and Note making App</p>
-      <form className="form" onSubmit={handleSubmit}>
-        <input className="formInput" ref={emailRef} type="email" placeholder="Email" required />
-        <input className="formInput" ref={passwordRef} type="password" placeholder="Password" required />
-        <button className="btn btn-success" type="submit">Register</button>
-        <div className=" mt-2">
-          Already have an account? <Link to="/login" className="link">Login</Link>
-        </div>
-      </form>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card col-6 p-4 shadow">
+        <h2 className="text-success text-center">Sign Up</h2>
+        <p className="text-muted text-center">
+          Create your account for the Boards and Note making App
+        </p>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="row g-3">
+            <div className="col-12">
+              <input
+                className="form-control"
+                ref={firstNameRef}
+                type="text"
+                placeholder="First Name"
+                required
+              />
+            </div>
+            <div className="col-12">
+              <input
+                className="form-control"
+                ref={emailRef}
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div className="col-12">
+              <input
+                className="form-control"
+                ref={contactRef}
+                type="tel"
+                placeholder="Contact Number"
+                pattern="[0-9]{10}"
+                required
+              />
+            </div>
+            <div className="col-12">
+              <select
+                className="form-control"
+                ref={genderRef}
+                defaultValue=""
+                required
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="col-12 position-relative">
+              <input
+                className="form-control"
+                ref={passwordRef}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="position-absolute"
+                style={{
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              >
+                {showPassword ? "👁" : "👀"}
+              </span>
+            </div>
+            <div className="col-12 position-relative">
+              <input
+                className="form-control"
+                ref={confirmPasswordRef}
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                required
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="position-absolute"
+                style={{
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              >
+                {showPassword ? "👁" : "👀"}
+              </span>
+            </div>
+          </div>
+          <button className="btn btn-success w-100 mt-3" type="submit">
+            Register
+          </button>
+          <div className="text-center mt-3">
+            Already have an account?{" "}
+            <Link to="/login" className="text-decoration-none text-info">
+              Login
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

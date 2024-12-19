@@ -7,7 +7,6 @@ import {
   onAuthStateChanged 
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore'; 
-import { useNavigate } from 'react-router-dom'; 
 
 const AuthContext = createContext();
 
@@ -15,7 +14,7 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children, navigate }) {
+export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,14 +26,17 @@ export function AuthProvider({ children, navigate }) {
     return unsubscribe;
   }, []);
 
-  const signUp = async (email, password) => {
+  // Enhanced signUp function to store additional user details
+  const signUp = async (email, password, userDetails) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Save additional user details to Firestore
       await setDoc(doc(db, 'users', user.uid), {
         email: user.email,
         createdAt: new Date().toISOString(),
+        ...userDetails, // Includes firstName, contact, and gender
       });
 
       console.log('User registered and details saved to Firestore');
@@ -44,14 +46,16 @@ export function AuthProvider({ children, navigate }) {
     }
   };
 
+  // Login function
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // Logout function
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate('/login'); 
+      console.log('User logged out');
     } catch (error) {
       console.error('Error during logout:', error.message);
     }
@@ -63,4 +67,3 @@ export function AuthProvider({ children, navigate }) {
     </AuthContext.Provider>
   );
 }
- 

@@ -11,7 +11,6 @@ body {
   margin: 20px auto;
   padding: 20px;
   background-color: white;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -72,9 +71,8 @@ button:active {
   align-items: center;
   margin-bottom: 20px;
   padding: 10px;
-  background-color: #4e565f;
+  background-color: #95afcb;
   color: white;
-  border-radius: 5px;
 }
 
 .dashboard-header h1 {

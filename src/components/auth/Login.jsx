@@ -25,18 +25,10 @@ export default function Login() {
       alert("Failed to log in: " + error.message);
     }
   };
-  //   e.preventDefault();
-  //   try {
-  //     await login(emailRef.current.value, passwordRef.current.value);
-  //     navigate('/dashboard');
-  //   } catch {
-  //     alert('Failed to log in');
-  //   }
-  // };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="card col-6 p-4 shadow">
+      <div className="card col-lg-4 col-md-6 col-10 p-4 shadow">
         <h2 className="text-success text-center">Login</h2>
         <p className="text-muted text-center">
           Welcome to your personal Boards and Note making App
@@ -74,7 +66,7 @@ export default function Login() {
               </span>
             </div>
           </div>
-          <div className="form-check text-center">
+          <div className="form-check text-center mt-2">
             <input className="form-check-input me-2" type="checkbox" id="rememberMe" />
             <label className="form-check-label" htmlFor="rememberMe">
               Remember Me
@@ -83,9 +75,11 @@ export default function Login() {
               Forgot Password?
             </Link>
           </div>
-          <button className="btn btn-success w-100 mt-3" type="submit">
-            Login
-          </button>
+          <div className="col-12">
+            <button className="btn btn-success w-100 mt-3" type="submit">
+              Login
+            </button>
+          </div>
           <div className="text-center mt-3">
             Don't have an account?{' '}
             <Link to="/signup" className="text-decoration-none text-info">

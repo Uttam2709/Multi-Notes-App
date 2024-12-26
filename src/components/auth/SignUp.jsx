@@ -24,13 +24,13 @@ export default function SignUp() {
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return alert("Passwords do not match!");
     }
-  
+
     const userDetails = {
       firstName: firstNameRef.current.value,
       contact: contactRef.current.value,
       gender: genderRef.current.value,
     };
-  
+
     try {
       await signUp(emailRef.current.value, passwordRef.current.value, userDetails);
       alert("Sign-up successful!");
@@ -39,10 +39,10 @@ export default function SignUp() {
       alert(error.message);
     }
   };
-  
+
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="card col-6 p-4 shadow">
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card p-4 shadow w-100" style={{ maxWidth: "500px" }}>
         <h2 className="text-success text-center">Sign Up</h2>
         <p className="text-muted text-center">
           Create your account for the Boards and Note making App
@@ -102,13 +102,8 @@ export default function SignUp() {
               />
               <span
                 onClick={togglePasswordVisibility}
-                className="position-absolute"
-                style={{
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                }}
+                className="position-absolute password-toggle-icon"
+                style={{ top: "50%", right: "10px", transform: "translateY(-50%)", cursor: "pointer" }}
               >
                 {showPassword ? "👁" : "👀"}
               </span>
@@ -123,13 +118,8 @@ export default function SignUp() {
               />
               <span
                 onClick={togglePasswordVisibility}
-                className="position-absolute"
-                style={{
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                }}
+                className="position-absolute password-toggle-icon"
+                style={{ top: "50%", right: "10px", transform: "translateY(-50%)", cursor: "pointer" }}
               >
                 {showPassword ? "👁" : "👀"}
               </span>

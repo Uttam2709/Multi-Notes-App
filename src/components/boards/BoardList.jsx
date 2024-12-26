@@ -2,7 +2,6 @@ import React from 'react';
 import { useBoard } from '../../contexts/BoardContext';
 import '../../assets/CustomStyle.css';
 
-
 export default function BoardList() {
   const { boards, deleteBoard } = useBoard();
 

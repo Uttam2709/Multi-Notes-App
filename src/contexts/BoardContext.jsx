@@ -49,7 +49,6 @@ export function BoardProvider({ children }) {
     await updateDoc(boardRef, { name: newName });
   };
 
-  // Optional utility to fetch boards manually (already handled in useEffect)
   const getBoards = async () => {
     const q = query(
       collection(db, "boards"),

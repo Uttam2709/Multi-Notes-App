@@ -3,11 +3,30 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <script>
+    function setFavicon(href) {
+      let link = document.querySelector("link[rel='icon']") || document.createElement('link');
+      link.rel = 'icon';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+  
+    const testFavicon = new Image();
+    testFavicon.src = "/tabLogo.png";
+  
+    testFavicon.onload = function () {
+      setFavicon("/tabLogo.png");
+    };
+  
+    testFavicon.onerror = function () {
+      setFavicon("/Notifio-me.png");
+    };
+  </script>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MutliBoard Note Taking React App</title>
+  <title>Secret-Me Note App</title>
 </head>
 
 <body>

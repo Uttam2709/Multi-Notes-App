@@ -1,9 +1,9 @@
 import React from 'react';
 import AddBoard from './AddBoard';
-import BoardList from './BoardList';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/CustomStyle.css';
+import BoardManager from './BoardManager';
 
 
 export default function Dashboard() {
@@ -22,7 +22,7 @@ export default function Dashboard() {
         <button onClick={handleLogout}>Logout</button>
       </div>
       <AddBoard />
-      <BoardList />
+      <BoardManager />
     </div>
   );
 }

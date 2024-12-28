@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../assets/CustomStyle.css';
+import "../../assets/styles/CustomStyle.css";
 
 export default function Login() {
   const emailRef = useRef();
@@ -31,7 +31,7 @@ export default function Login() {
       <div className="card col-lg-4 col-md-6 col-10 p-4 shadow">
         <h2 className="text-success text-center">Login</h2>
         <p className="text-muted text-center">
-          Welcome to your personal Boards and Note making App
+        Your personal space awaits
         </p>
         <form className="form" onSubmit={handleSubmit}>
           <div className="row g-3">

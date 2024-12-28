@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import "../../assets/CustomStyle.css";
+import "../../assets/styles/CustomStyle.css";
 
 export default function SignUp() {
   const firstNameRef = useRef();
@@ -45,7 +45,7 @@ export default function SignUp() {
       <div className="card p-4 shadow w-100" style={{ maxWidth: "500px" }}>
         <h2 className="text-success text-center">Sign Up</h2>
         <p className="text-muted text-center">
-          Create your account for the Boards and Note making App
+          Create your personal Dairies & Notes space with Us
         </p>
         <form className="form" onSubmit={handleSubmit}>
           <div className="row g-3">

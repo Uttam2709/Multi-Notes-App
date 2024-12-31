@@ -162,3 +162,24 @@ li button:hover {
     padding: 10px;
   }
 }
+
+/* Ensure the footer stays at the bottom */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+

@@ -18,13 +18,13 @@ export default function Dashboard() {
   };
 
   if (!currentUser) {
-    return <div>Loading...</div>; // Show loading if the user data is not available yet
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Welcome, {currentUser?.displayName || "User"}!</h1> {/* Display the user's name */}
+        <h1>Welcome, {currentUser?.displayName || "User"}!</h1>
         <button onClick={handleLogout} className="btn btn-primary">
           Logout
         </button>

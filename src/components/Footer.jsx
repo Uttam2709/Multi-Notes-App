@@ -1,23 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import tabLogo from "../assets/images/tabLogo.png"; // Make sure the image path is correct
+import tabLogo from "../assets/images/tabLogo.png";
 
 const Footer = () => {
   return (
-    <footer className="pt-3">
-      <div className="container">
+    <footer className="bg-light fixed-bottom ">
+      <div className="mt-auto pt-3 ">
         <div className="row justify-content-center">
-
           {/* Logo Section */}
-          <div className="col-12 col-md-3 text-center ">
-            <Link to="/" className="text-2xl font-weight-bold">
-              <span className="text-success">
-                <img
-                  src={tabLogo}
-                  alt="Tab Logo"
-                  style={{ width: "80px", height: "80px" }}
-                />
-              </span>
+          <div className="col-12 col-md-3 text-center">
+            <Link to="/" className="d-block mb-2">
+              <img
+                src={tabLogo}
+                alt="Tab Logo"
+                className="img-fluid"
+                style={{ maxWidth: "80px", maxHeight: "80px" }}
+              />
             </Link>
           </div>
 
@@ -30,46 +28,37 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links Section */}
-          <div className="col-12 col-md-3 mb-3">
-            <h5>Quick Links</h5>
-            <ul className="list-unstyled">
-              <li>
-                <Link to="/" className="text-black text-decoration-none">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-black text-decoration-none">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-black text-decoration-none">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link to="/login" className="text-black text-decoration-none">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="text-black text-decoration-none">
-                  Signup
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Info Section */}
           <div className="col-12 col-md-3 mb-3">
             <h5>Contact Info</h5>
             <ul className="list-unstyled">
-              <li>Github</li>
+              <li>
+                <a
+                  href="https://github.com/Uttam2709"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black text-decoration-none"
+                >
+                  Github
+                </a>
+              </li>
               <li>Rajkot, Gujarat, 360311</li>
-              <li>uttammarakana03@gmail.com</li>
-              <li>+91 6353098381</li>
+              <li>
+                <a
+                  href="mailto:uttammarakana03@gmail.com"
+                  className="text-black text-decoration-none"
+                >
+                  uttammarakana03@gmail.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+91 6353098381"
+                  className="text-black text-decoration-none"
+                >
+                  +91 6353098381
+                </a>
+              </li>
             </ul>
           </div>
         </div>

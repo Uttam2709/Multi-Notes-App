@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useBoard } from "../../contexts/BoardContext";
 import BoardEdit from "./BoardEdit";
-import AddBoard from "./AddBoard";
+import AddBoard from '../Boards/AddBoard';
 
 export default function BoardManager() {
   const { boards, updateBoardName, deleteBoard } = useBoard();
   const [editBoardId, setEditBoardId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [notification, setNotification] = useState({ type: '', message: '' });
 
   const handleEdit = (boardId) => {
     setEditBoardId(boardId);
@@ -16,13 +15,12 @@ export default function BoardManager() {
 
   const handleSave = async (boardId, newName) => {
     setLoading(true);
-    setError("");
-    setSuccess("");
+    setNotification({ type: '', message: '' });
     try {
       await updateBoardName(boardId, newName);
-      setSuccess("Board name updated successfully!");
+      setNotification({ type: 'success', message: 'Board name updated successfully!' });
     } catch (error) {
-      setError("Failed to update board name.");
+      setNotification({ type: 'error', message: error.message || 'Failed to update board name.' });
     } finally {
       setLoading(false);
       setEditBoardId(null);
@@ -31,15 +29,15 @@ export default function BoardManager() {
 
   const handleDelete = async (boardId) => {
     setLoading(true);
-    setError("");
+    setNotification({ type: '', message: '' });
     try {
       await deleteBoard(boardId);
-      setSuccess("Board deleted successfully!");
+      setNotification({ type: 'success', message: 'Board deleted successfully!' });
       setTimeout(() => {
-        setSuccess("");
+        setNotification({ type: '', message: '' });
       }, 5000);
     } catch (error) {
-      setError("Failed to delete board.");
+      setNotification({ type: 'error', message: error.message || 'Failed to delete board.' });
     } finally {
       setLoading(false);
     }
@@ -52,11 +50,13 @@ export default function BoardManager() {
   return (
     <div className="container mt-4">
       {loading && <p className="text-center text-info">Loading...</p>}
-      {error && <p className="text-center text-danger">{error}</p>}
-      {success && <p className="text-center text-success">{success}</p>}
+      {notification.message && (
+        <p className={`text-center text-${notification.type}`}>{notification.message}</p>
+      )}
       <AddBoard />
 
       <div className="row g-3">
+        {boards.length === 0 && <p>No boards available</p>}
         {boards.map((board) => (
           <div key={board.id} className="col-md-4">
             {editBoardId === board.id ? (

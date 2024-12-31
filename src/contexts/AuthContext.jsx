@@ -20,23 +20,27 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // Fetch additional user details from Firestore
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDoc = await getDoc(userDocRef);
+      try {
+        if (user) {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
 
-        if (userDoc.exists()) {
-          setCurrentUser({
-            ...user,
-            ...userDoc.data(), // Merge Firestore data with Firebase user object
-          });
+          if (userDoc.exists()) {
+            setCurrentUser({
+              ...user,
+              ...userDoc.data(), // Merge Firestore data with Firebase user object
+            });
+          } else {
+            setCurrentUser(user); // Use basic Firebase user object if no Firestore data exists
+          }
         } else {
-          setCurrentUser(user); // Use basic Firebase user object if no Firestore data exists
+          setCurrentUser(null);
         }
-      } else {
-        setCurrentUser(null);
+      } catch (error) {
+        console.error('Error fetching user details:', error.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return unsubscribe;
@@ -55,14 +59,21 @@ export function AuthProvider({ children }) {
       });
 
       console.log('User registered and details saved to Firestore');
+      return user;
     } catch (error) {
       console.error('Error during sign-up:', error.message);
       throw error;
     }
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    } catch (error) {
+      console.error('Error during login:', error.message);
+      throw error;
+    }
   };
 
   const logout = async () => {
@@ -74,8 +85,28 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const refreshCurrentUser = async () => {
+    if (auth.currentUser) {
+      try {
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          setCurrentUser({
+            ...auth.currentUser,
+            ...userDoc.data(),
+          });
+        } else {
+          setCurrentUser(auth.currentUser);
+        }
+      } catch (error) {
+        console.error('Error refreshing user details:', error.message);
+      }
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, signUp, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, signUp, login, logout, loading, refreshCurrentUser }}>
       {!loading && children}
     </AuthContext.Provider>
   );

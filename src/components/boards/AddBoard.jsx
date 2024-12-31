@@ -21,7 +21,7 @@ export default function AddBoard() {
       <div className="mb-5">
       <form className="row" onSubmit={handleSubmit}>
         <div>
-          <input className="mx-3" ref={nameRef} type="text" placeholder="Board Name" required />
+          <input className="m-[10px]" ref={nameRef} type="text" placeholder="Board Name" required />
           <button type="submit">Add Board</button>
         </div>
       </form>

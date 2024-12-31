@@ -11,9 +11,12 @@ body {
   margin: 20px auto;
   padding: 20px;
   background-color: white;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Typography */
+h1,
 h2 {
   color: #007bff;
   font-size: 1.8rem;
@@ -25,14 +28,33 @@ p {
   color: #666;
 }
 
+/* Buttons */
 button,
-input[type="text"] {
+input[type="text"],
+.btn {
   padding: 10px;
   font-size: 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+button,
+.btn {
+  background-color: #28a745;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0);
 }
 
 input[type="text"] {
@@ -46,58 +68,36 @@ input[type="text"]:focus {
   outline: none;
 }
 
-button {
-  background-color: #28a745;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-button:hover {
-  transform: translateY(-2px);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-/* Dashboard Styles */
-.container.dashboard {
-  max-width: 1200px;
-}
-
+/* Dashboard Header */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   padding: 10px;
-  background-color: #95afcb;
+  background-color: #4e565f;
   color: white;
+  border-radius: 5px;
 }
 
 .dashboard-header h1 {
-  margin: 0;
   font-size: 1.8rem;
   font-weight: bold;
 }
 
-.add-board,
-.board-list {
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.board-manager {
+  margin-top: 1rem;
 }
 
+/* Lists */
 ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   background-color: #f9f9f9;
   border-radius: 6px;
-  box-shadow: 0 2px 50px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 li {
@@ -119,34 +119,10 @@ li span {
   color: #333;
 }
 
-/* Buttons */
-.btn {
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.btn-success {
-  background-color: #3f9754;
-  color: white;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-}
-
+/* Forms */
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 10px;
   margin: 20px 0;
 }
@@ -167,7 +143,7 @@ li span {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-  .container.dashboard,
+  .container,
   .add-board,
   .board-list {
     padding: 15px;
@@ -199,6 +175,32 @@ li span {
   }
 }
 
+@media screen and (max-width: 480px) {
+  .dashboard-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  button {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+}
+
+/* Specific Classes for Boards */
+.add-board,
+.board-list {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .board-card {
   border-radius: 10px;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -216,22 +218,17 @@ li span {
   transition: color 0.2s;
 }
 
+/* Utility Classes */
 .gap-2 {
   gap: 0.5rem;
 }
 
-@media screen and (max-width: 480px) {
-  .dashboard-header h1 {
-    font-size: 1.2rem;
-  }
-
-  .btn {
-    font-size: 0.8rem;
-    padding: 6px 8px;
-  }
-
-  button {
-    font-size: 0.8rem;
-    width: 100%;
-  }
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #6c757d;
 }

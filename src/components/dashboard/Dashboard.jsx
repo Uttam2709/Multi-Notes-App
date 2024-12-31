@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import BoardManager from "../Boards/BoardManager";
+import BoardManager from "../boards/BoardManager";
 import "../../assets/styles/CustomStyle.css";
 
 const Dashboard = () => {
@@ -17,6 +17,13 @@ const Dashboard = () => {
     }
   };
 
+  const getGreetingMessage = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good Morning";
+    if (hour < 18) return "Good Afternoon";
+    return "Good Evening";
+  };
+
   if (!currentUser) {
     return (
       <div className="loading-screen">
@@ -26,11 +33,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard container py-4">
+    <div className="dashboard container py-2" style={{ marginTop: "80px" }}>
       {/* Header Section */}
-      <div className="dashboard-header d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-primary">
-          Welcome, {currentUser.displayName || "User"}!
+      <div className="dashboard-header d-flex justify-content-between align-items-center mt-5">
+        <h1 style={{color: 'white'}}>
+          {getGreetingMessage()}, {currentUser.displayName || "User"}!
         </h1>
         <button
           onClick={handleLogout}

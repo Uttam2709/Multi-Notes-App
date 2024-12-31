@@ -7,13 +7,13 @@ import { NoteProvider } from "./contexts/NoteContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
+
 import Dashboard from "./components/dashboard/Dashboard";
-import BoardManager from "./components/Boards/BoardManager";
-import AddBoard from "./components/Boards/AddBoard";
+import BoardManager from './components/boards/BoardManager';
+import AddBoard from "./components/boards/AddBoard";
 import NoteManager from "./components/Notes/NoteManager";
 import AddNote from "./components/Notes/AddNote";
 import EditNote from "./components/Notes/EditNote";

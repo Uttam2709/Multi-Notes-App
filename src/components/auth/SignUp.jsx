@@ -41,11 +41,11 @@ export default function SignUp() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ marginTop: "80px" }}>
       <div className="card p-4 shadow w-100" style={{ maxWidth: "500px" }}>
         <h2 className="text-success text-center">Sign Up</h2>
         <p className="text-muted text-center">
-          Create your personal Dairies & Notes space with Us
+          Create your personal Diaries & Notes space with Us
         </p>
         <form className="form" onSubmit={handleSubmit}>
           <div className="row g-3">

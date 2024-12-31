@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useBoard } from "../../contexts/BoardContext";
 import BoardEdit from "./BoardEdit";
-import AddBoard from '../Boards/AddBoard';
+import AddBoard from './AddBoard';
 
 export default function BoardManager() {
   const { boards, updateBoardName, deleteBoard } = useBoard();

@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDOWXJUHzRODt5PCVESMVMLNytCK4C3LyM",
+  apiKey: "AIzaSyDOWXJUHzRODt5PCVESMVMLNytCK4C3LyM", // apiKey
   authDomain: "multi-boards-note-app.firebaseapp.com",
   projectId: "multi-boards-note-app",
   storageBucket: "multi-boards-note-app.appspot.com",
@@ -15,3 +15,4 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+

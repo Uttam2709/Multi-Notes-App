@@ -4,7 +4,7 @@ import tabLogo from "../assets/images/tabLogo.png";
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -19,9 +19,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed-top bg-white shadow-sm">
-      {/* Navbar Container */}
-      <div className="d-flex justify-content-between align-items-center px-5 py-2">
+    <>
+      <div className="d-flex justify-content-between align-items-center px-4 py-2 fixed-top bg-white shadow-sm">
+        
         {/* Logo Section */}
         <div className="mr-auto">
           <Link to="/" className="text-2xl font-weight-bold">
@@ -52,7 +52,14 @@ const Navbar = () => {
         <div className="d-flex justify-content-end">
           {currentUser ? (
             <>
-              <button onClick={handleLogout} className="btn btn-danger">
+              <span className="text-primary mx-2 align-self-center">
+                {currentUser.displayName || "User"}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="btn btn-danger btn-sm"
+                style={{ padding: "0.25rem 0.5rem",  }}
+              >
                 Logout
               </button>
               {error && <p className="text-danger ml-2 mb-0">{error}</p>}
@@ -69,7 +76,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

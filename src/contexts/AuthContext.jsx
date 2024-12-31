@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebase/firebase';
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -18,8 +18,10 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Monitor authentication state and load user data from Firestore
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setLoading(true);
       try {
         if (user) {
           const userDocRef = doc(db, 'users', user.uid);
@@ -27,11 +29,11 @@ export function AuthProvider({ children }) {
 
           if (userDoc.exists()) {
             setCurrentUser({
-              ...user,
-              ...userDoc.data(), // Merge Firestore data with Firebase user object
+              ...user, // Firebase user object
+              ...userDoc.data(), // Firestore user data
             });
           } else {
-            setCurrentUser(user); // Use basic Firebase user object if no Firestore data exists
+            setCurrentUser(user); // Default to Firebase user if no Firestore data exists
           }
         } else {
           setCurrentUser(null);
@@ -43,9 +45,10 @@ export function AuthProvider({ children }) {
       }
     });
 
-    return unsubscribe;
+    return unsubscribe; // Cleanup on unmount
   }, []);
 
+  // Sign-up function with Firestore integration
   const signUp = async (email, password, userDetails) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -55,7 +58,7 @@ export function AuthProvider({ children }) {
       await setDoc(doc(db, 'users', user.uid), {
         email: user.email,
         createdAt: new Date().toISOString(),
-        ...userDetails, // Includes firstName, contact, and gender
+        ...userDetails, // Custom user data
       });
 
       console.log('User registered and details saved to Firestore');
@@ -66,6 +69,7 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Login function
   const login = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -76,15 +80,19 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Logout function
   const logout = async () => {
     try {
       await signOut(auth);
+      setCurrentUser(null); // Clear user state after logout
       console.log('User logged out');
     } catch (error) {
       console.error('Error during logout:', error.message);
+      throw error;
     }
   };
 
+  // Refresh current user data from Firestore
   const refreshCurrentUser = async () => {
     if (auth.currentUser) {
       try {
@@ -106,7 +114,16 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, signUp, login, logout, loading, refreshCurrentUser }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        signUp,
+        login,
+        logout,
+        loading,
+        refreshCurrentUser,
+      }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );

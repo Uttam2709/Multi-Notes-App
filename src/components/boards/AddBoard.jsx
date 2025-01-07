@@ -18,7 +18,7 @@ export default function AddBoard() {
 
   return (
     <>
-      <div className="mb-5">
+        <div className="mb-5">
       <form className="row" onSubmit={handleSubmit}>
         <div>
           <input className="m-[10px]" ref={nameRef} type="text" placeholder="Board Name" required />

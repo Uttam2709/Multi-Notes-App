@@ -11,7 +11,7 @@ const Dashboard = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login"); // Redirect to login page after logout
+      navigate("/login");
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -33,7 +33,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard container py-2" style={{ marginTop: "80px" }}>
+    <div className="dashboard  py-2" style={{ marginTop: "80px" }}>
       {/* Header Section */}
       <div className="dashboard-header d-flex justify-content-between align-items-center mt-5">
         <h1 style={{color: 'white'}}>
@@ -49,9 +49,7 @@ const Dashboard = () => {
       </div>
 
       {/* Board Manager Section */}
-      <div className="board-manager">
         <BoardManager userId={currentUser.uid} />
-      </div>
     </div>
   );
 };

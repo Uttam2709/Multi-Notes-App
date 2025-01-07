@@ -54,7 +54,7 @@ export default function SignUp() {
                 className="form-control"
                 ref={firstNameRef}
                 type="text"
-                placeholder="First Name"
+                placeholder="Name"
                 required
               />
             </div>

@@ -47,14 +47,13 @@ const Navbar = () => {
             </Link>
           </div>
         )}
-
-        {/* Auth Links */}
+  
         <div className="d-flex justify-content-end">
           {currentUser ? (
             <>
-              <span className="text-primary mx-2 align-self-center">
+              {/* <span className="text-primary mx-2 align-self-center">
                 {currentUser.displayName || "User"}
-              </span>
+              </span> */} 
               <button
                 onClick={handleLogout}
                 className="btn btn-danger btn-sm"

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "../../assets/styles/CustomStyle.css";
+// import "../../assets/styles/CustomStyle.css";
 import { useBoard } from "../../contexts/BoardContext";
 
 export default function AddBoard() {
@@ -18,13 +18,19 @@ export default function AddBoard() {
 
   return (
     <>
-        <div className="mb-5">
-      <form className="row" onSubmit={handleSubmit}>
-        <div>
-          <input className="m-[10px]" ref={nameRef} type="text" placeholder="Board Name" required />
-          <button type="submit">Add Board</button>
-        </div>
-      </form>
+      <div className="mb-5">
+        <form className="row" onSubmit={handleSubmit}>
+          <div>
+            <input
+              className="m-[10px]"
+              ref={nameRef}
+              type="text"
+              placeholder="Board Name"
+              required
+            />
+            <button className="ms-3" style={{background: " blue"}} type="submit">Add Board</button>
+          </div>
+        </form>
       </div>
     </>
   );

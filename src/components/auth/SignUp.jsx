@@ -1,19 +1,21 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import "../../assets/styles/CustomStyle.css";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
+
   const firstNameRef = useRef();
+  const userNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const contactRef = useRef();
   const genderRef = useRef();
   const { signUp } = useAuth();
-  const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -22,31 +24,50 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return alert("Passwords do not match!");
+      setPopupMessage("Passwords do not match!");
+      setPopupVisible(true);
+      setTimeout(() => setPopupVisible(false), 5000);
+      return;
     }
 
     const userDetails = {
       firstName: firstNameRef.current.value,
+      userName: userNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
       contact: contactRef.current.value,
       gender: genderRef.current.value,
     };
 
     try {
-      await signUp(emailRef.current.value, passwordRef.current.value, userDetails);
-      alert("Sign-up successful!");
-      navigate("/login");
+      await signUp(
+        emailRef.current.value,
+        passwordRef.current.value,
+        userDetails
+      );
+      setPopupMessage("Sign-up successful!");
+      setPopupVisible(true);
+      setTimeout(() => {
+        setPopupVisible(false);
+        navigate("/login");
+      });
     } catch (error) {
-      alert(error.message);
+      setPopupMessage(error.message);
+      setPopupVisible(true);
+      setTimeout(() => setPopupVisible(false), 10000);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ marginTop: "80px" }}>
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
       <div className="card p-4 shadow w-100" style={{ maxWidth: "500px" }}>
         <h2 className="text-success text-center">Sign Up</h2>
         <p className="text-muted text-center">
           Create your personal Diaries & Notes space with Us
         </p>
+        {popupVisible && (
+          <div className="popup-notification">{popupMessage}</div>
+        )}
         <form className="form" onSubmit={handleSubmit}>
           <div className="row g-3">
             <div className="col-12">
@@ -55,6 +76,15 @@ export default function SignUp() {
                 ref={firstNameRef}
                 type="text"
                 placeholder="Name"
+                required
+              />
+            </div>
+            <div className="col-12">
+              <input
+                className="form-control"
+                ref={userNameRef}
+                type="text"
+                placeholder="User Name"
                 required
               />
             </div>
@@ -84,9 +114,7 @@ export default function SignUp() {
                 defaultValue=""
                 required
               >
-                <option value="" disabled>
-                  Select Gender
-                </option>
+                <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -103,7 +131,12 @@ export default function SignUp() {
               <span
                 onClick={togglePasswordVisibility}
                 className="position-absolute password-toggle-icon"
-                style={{ top: "50%", right: "10px", transform: "translateY(-50%)", cursor: "pointer" }}
+                style={{
+                  top: "50%",
+                  right: "10px",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
               >
                 {showPassword ? "👁" : "👀"}
               </span>
@@ -119,7 +152,12 @@ export default function SignUp() {
               <span
                 onClick={togglePasswordVisibility}
                 className="position-absolute password-toggle-icon"
-                style={{ top: "50%", right: "10px", transform: "translateY(-50%)", cursor: "pointer" }}
+                style={{
+                  top: "50%",
+                  right: "10px",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
               >
                 {showPassword ? "👁" : "👀"}
               </span>

@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDOWXJUHzRODt5PCVESMVMLNytCK4C3LyM", // apiKey
+  apiKey: "AIzaSyDOWXJUHzRODt5PCVESMVMLNytCK4C3LyM", // change APIKey as per your configuration in firebase console 
   authDomain: "multi-boards-note-app.firebaseapp.com",
   projectId: "multi-boards-note-app",
   storageBucket: "multi-boards-note-app.appspot.com",

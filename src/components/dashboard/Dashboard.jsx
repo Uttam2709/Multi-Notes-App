@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import BoardManager from "../boards/BoardManager";
-import "../../assets/styles/CustomStyle.css";
+import LoadingGif from "../../assets/videos/Loading.gif";
 
 const Dashboard = () => {
-  const { logout, currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
+      setError("");
       await logout();
-      navigate("/login");
-    } catch (error) {
-      console.error("Error logging out:", error);
+      navigate("/auth/login");
+    } catch {
+      setError("Please try later");
     }
   };
 
@@ -26,30 +28,34 @@ const Dashboard = () => {
 
   if (!currentUser) {
     return (
-      <div className="loading-screen">
-        <p>Loading...</p>
+      <div
+        className="loading-screen d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <video
+          src={LoadingGif}
+          autoPlay
+          loop
+          muted
+          style={{ width: "60%", maxWidth: "600px", borderRadius: "10px" }}
+        />
       </div>
     );
   }
 
   return (
-    <div className="dashboard  py-2" style={{ marginTop: "80px" }}>
-      {/* Header Section */}
-      <div className="dashboard-header d-flex justify-content-between align-items-center mt-5">
-        <h1 style={{color: 'white'}}>
-          {getGreetingMessage()}, {currentUser.displayName || "User"}!
+    <div className="dashboard">
+      <div className="dashboard-header d-flex justify-content-between align-items-center">
+        <h1 style={{ color: "white" }}>
+          {getGreetingMessage()}, {currentUser.displayName || "UserName"}!
         </h1>
-        <button
-          onClick={handleLogout}
-          className="btn btn-danger"
-          aria-label="Logout"
-        >
+        <button onClick={handleLogout} className="btn btn-danger">
           Logout
         </button>
+        {error && <strong className="text-white">{error}</strong>}
       </div>
 
-      {/* Board Manager Section */}
-        <BoardManager userId={currentUser.uid} />
+      <BoardManager userId={currentUser.uid} />
     </div>
   );
 };

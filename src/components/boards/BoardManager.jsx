@@ -56,7 +56,7 @@ export default function BoardManager() {
       <AddBoard />
 
       <div className="row g-3">
-        {boards.length === 0 && <p>No boards available</p>}
+        {boards.length === 0 && <p className="text-dark">No boards available</p>}
         {boards.map((board) => (
           <div key={board.id} className="col-md-4">
             {editBoardId === board.id ? (

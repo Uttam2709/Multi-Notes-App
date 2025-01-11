@@ -6,17 +6,22 @@ import { NoteProvider } from "./contexts/NoteContext";
 
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
-import Navbar from "./components/Navbar";
-
+// Auth Files
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 
 import Dashboard from "./components/dashboard/Dashboard";
-import BoardManager from './components/boards/BoardManager';
+
+// Boards Files
+import BoardManager from "./components/boards/BoardManager";
 import AddBoard from "./components/boards/AddBoard";
+
+// Notes Files
 import NoteManager from "./components/Notes/NoteManager";
 import AddNote from "./components/Notes/AddNote";
 import EditNote from "./components/Notes/EditNote";
+
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -24,7 +29,6 @@ function App() {
       <AuthProvider>
         <BoardProvider>
           <NoteProvider>
-            <Navbar />
             <div className="main-content">
               <Routes>
                 {/* Public Routes */}
@@ -81,7 +85,6 @@ function App() {
                   }
                 />
 
-                {/* Catch-All Route */}
                 <Route path="*" element={<Navigate to="/login" />} />
               </Routes>
             </div>

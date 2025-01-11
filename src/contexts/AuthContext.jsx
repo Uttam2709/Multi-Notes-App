@@ -18,6 +18,35 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     setLoading(true);
+  //     try {
+  //       if (user) {
+  //         const userDocRef = doc(db, "users", user.uid);
+  //         const userDoc = await getDoc(userDocRef);
+
+  //         if (userDoc.exists()) {
+  //           setCurrentUser({
+  //             ...user,
+  //             ...userDoc.data(),
+  //           });
+  //         } else {
+  //           setCurrentUser(user);
+  //         }
+  //       } else {
+  //         setCurrentUser(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user details:", error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
@@ -25,14 +54,20 @@ export function AuthProvider({ children }) {
         if (user) {
           const userDocRef = doc(db, "users", user.uid);
           const userDoc = await getDoc(userDocRef);
-
+  
           if (userDoc.exists()) {
+            const userData = userDoc.data();
             setCurrentUser({
-              ...user,
-              ...userDoc.data(),
+              uid: user.uid,
+              email: user.email,
+              ...userData,
             });
           } else {
-            setCurrentUser(user);
+            console.warn("User document not found in Firestore.");
+            setCurrentUser({
+              uid: user.uid,
+              email: user.email,
+            });
           }
         } else {
           setCurrentUser(null);
@@ -43,7 +78,7 @@ export function AuthProvider({ children }) {
         setLoading(false);
       }
     });
-
+  
     return unsubscribe;
   }, []);
 

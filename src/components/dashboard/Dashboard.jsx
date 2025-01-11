@@ -47,7 +47,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-header d-flex justify-content-between align-items-center">
         <h1 style={{ color: "white" }}>
-          {getGreetingMessage()}, {currentUser.displayName || "UserName"}!
+          {getGreetingMessage()}, {currentUser.userName || currentUser.displayName || "User"}!
         </h1>
         <button onClick={handleLogout} className="btn btn-danger">
           Logout

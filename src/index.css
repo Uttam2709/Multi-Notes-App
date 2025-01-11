@@ -84,6 +84,43 @@ input[type="text"]:focus {
   outline: none;
 }
 
+
+input[type="email"] {
+  border: 1px solid #ddd;
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="email"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input[type="tel"] {
+  border: 1px solid #ddd;
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="tel"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input[type="password"] {
+  border: 1px solid #ddd;
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+
+
 /* Dashboard Header */
 .dashboard-header {
   display: flex;
@@ -105,7 +142,6 @@ input[type="text"]:focus {
   margin-top: 1rem;
 }
 
-/* Lists */
 ul {
   list-style: none;
   padding: 0;

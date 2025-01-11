@@ -63,7 +63,7 @@ export default function Login() {
                 onClick={togglePasswordVisibility}
                 className="position-absolute"
                 style={{
-                  right: "10px",
+                  right: "20px",
                   top: "50%",
                   transform: "translateY(-50%)",
                   cursor: "pointer",

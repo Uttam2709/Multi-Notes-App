@@ -133,7 +133,7 @@ export default function SignUp() {
                 className="position-absolute password-toggle-icon"
                 style={{
                   top: "50%",
-                  right: "10px",
+                  right: "20px",
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                 }}
@@ -154,7 +154,7 @@ export default function SignUp() {
                 className="position-absolute password-toggle-icon"
                 style={{
                   top: "50%",
-                  right: "10px",
+                  right: "20px",
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                 }}

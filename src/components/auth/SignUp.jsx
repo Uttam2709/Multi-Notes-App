@@ -26,7 +26,7 @@ export default function SignUp() {
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       setPopupMessage("Passwords do not match!");
       setPopupVisible(true);
-      setTimeout(() => setPopupVisible(false), 5000);
+      setTimeout(() => setPopupVisible(false));
       return;
     }
 

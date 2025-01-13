@@ -35,7 +35,7 @@ export default function BoardManager() {
       setNotification({ type: 'success', message: 'Board deleted successfully!' });
       setTimeout(() => {
         setNotification({ type: '', message: '' });
-      }, 5000);
+      }, 3000);
     } catch (error) {
       setNotification({ type: 'error', message: error.message || 'Failed to delete board.' });
     } finally {

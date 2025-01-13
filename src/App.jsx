@@ -88,7 +88,6 @@ function App() {
                 <Route path="*" element={<Navigate to="/login" />} />
               </Routes>
             </div>
-            {/* <Footer /> */}
           </NoteProvider>
         </BoardProvider>
       </AuthProvider>

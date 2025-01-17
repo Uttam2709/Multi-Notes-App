@@ -1,27 +1,30 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"; // Added Navigate
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// Import Context Providers
 import { AuthProvider } from "./contexts/AuthContext";
 import { BoardProvider } from "./contexts/BoardContext";
 import { NoteProvider } from "./contexts/NoteContext";
 
+// Import Components and Routes
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
-// Auth Files
-import Login from "./components/auth/Login";
-import SignUp from "./components/auth/SignUp";
+// Auth Pages
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
-// Boards Files
-import BoardManager from "./components/boards/BoardManager";
-import AddBoard from "./components/boards/AddBoard";
+// Board Pages
+import BoardManager from "./pages/BoardManager";
+import AddBoard from "./pages/AddBoard";
+import BoardEdit from "./pages/BoardEdit";
 
-// Notes Files
-import NoteManager from "./components/Notes/NoteManager";
-import AddNote from "./components/Notes/AddNote";
-import EditNote from "./components/Notes/EditNote";
-
-import Footer from "./components/Footer";
+// Note Pages
+import NoteManager from "./pages/NoteManager";
+import AddNote from "./pages/AddNote";
+import NoteEdit from "./pages/NoteEdit";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -49,7 +52,7 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <BoardManager />
-                    </ProtectedRoute>
+                    </ProtectedRoute> 
                   }
                 />
                 <Route
@@ -57,6 +60,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <AddBoard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/boards/edit/:id"
+                  element={
+                    <ProtectedRoute>
+                      <BoardEdit />
                     </ProtectedRoute>
                   }
                 />
@@ -80,12 +91,13 @@ function App() {
                   path="/notes/edit/:id"
                   element={
                     <ProtectedRoute>
-                      <EditNote />
+                      <NoteEdit />
                     </ProtectedRoute>
                   }
                 />
 
-                <Route path="*" element={<Navigate to="/login" />} />
+                {/* Redirect unknown paths to login */}
+                <Route path="*" element={< NotFound />} />
               </Routes>
             </div>
           </NoteProvider>

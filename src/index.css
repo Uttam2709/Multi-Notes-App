@@ -296,3 +296,21 @@ li span {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
+
+.note-list,
+.board-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.note-card,
+.board-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

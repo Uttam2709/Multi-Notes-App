@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { db } from "../firebase/firebase";
 import {
   collection,
-  query,
-  where,
   onSnapshot,
   addDoc,
   deleteDoc,
@@ -21,29 +19,33 @@ export function NoteProvider({ children }) {
   const { currentUser } = useAuth();
   const [notes, setNotes] = useState([]);
 
-  useEffect(() => {
-    if (!currentUser) return;
+  const fetchNotes = (boardId) => {
+    if (!currentUser || !boardId) return;
 
-    const unsubscribe = onSnapshot(
-      collection(db, "users", currentUser.uid, "notes"),
-      (snapshot) => {
-        setNotes(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      }
-    );
+    const notesRef = collection(db, "users", currentUser.uid, "boards", boardId, "notes");
+    const unsubscribe = onSnapshot(notesRef, (snapshot) => {
+      setNotes(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
 
-    return unsubscribe;
-  }, [currentUser]);
-
-  const addNote = async (content) => {
-    await addDoc(collection(db, "users", currentUser.uid, "notes"), { content });
+    return unsubscribe; // To clean up listener when component unmounts
   };
 
-  const deleteNote = async (id) => {
-    await deleteDoc(doc(db, "users", currentUser.uid, "notes", id));
+  const addNote = async (boardId, content) => {
+    if (!boardId || !content) return;
+
+    const notesRef = collection(db, "users", currentUser.uid, "boards", boardId, "notes");
+    await addDoc(notesRef, { content });
+  };
+
+  const deleteNote = async (boardId, noteId) => {
+    if (!boardId || !noteId) return;
+
+    const noteRef = doc(db, "users", currentUser.uid, "boards", boardId, "notes", noteId);
+    await deleteDoc(noteRef);
   };
 
   return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote }}>
+    <NoteContext.Provider value={{ notes, fetchNotes, addNote, deleteNote }}>
       {children}
     </NoteContext.Provider>
   );

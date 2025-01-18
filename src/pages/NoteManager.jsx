@@ -2,12 +2,30 @@ import React, { useState } from "react";
 import AddNote from "./AddNote";
 import NoteEdit from "./NoteEdit";
 import NoteItem from "./NoteItem";
-import { useNote } from "../contexts/NoteContext"; // Updated to useNote
+import { useNote } from "../contexts/NoteContext";
 
 export default function NoteManager({ boardId }) {
-  const { notes, addNote, deleteNote } = useNote(); // Updated to useNote
+  const { notes, fetchNotes, addNote, deleteNote } = useNote();
   const [NoteEditId, setNoteEditId] = useState(null);
+  const [newNote, setNewNote] = useState("");
 
+  useEffect(() => {
+    const unsubscribe = fetchNotes(boardId);
+    return () => unsubscribe && unsubscribe();
+  }, [boardId]);
+
+  const handleAddNote = async () => {
+    if (newNote.trim()) {
+      await addNote(boardId, newNote);
+      setNewNote("");
+    }
+  };
+
+  const handleSaveNote = async (updatedNote) => {
+    await updateNote(boardId, updatedNote);
+    setEditingNote(null);
+  };
+  
   const notesForBoard = notes.filter((note) => note.boardId === boardId);
 
   return (
